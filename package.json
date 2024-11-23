@@ -1,0 +1,67 @@
+{
+    "name": "aes-ctr-concurrent",
+    "version": "1.0.0-beta.0",
+    "description": "Native TypeScript Node.js library for AES-256-CTR with a Promise-based API, enabling concurrent encryption/decryption with precise IV offset handling down to any byte level, not just full blocks.",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Rychu-Pawel/aes-ctr-concurrent.git"
+    },
+    "keywords": [
+        "aes",
+        "ctr",
+        "iv-offset",
+        "block-cipher",
+        "concurrent",
+        "aes-256",
+        "aes-256-ctr",
+        "encryption",
+        "decryption",
+        "crypto",
+        "nodejs",
+        "typescript",
+        "stream",
+        "cipher",
+        "decipher",
+        "promise",
+        "byte-offset",
+        "secure",
+        "cryptography"
+    ],
+    "author": "Rychu",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Rychu-Pawel/aes-ctr-concurrent/issues"
+    },
+    "homepage": "https://github.com/Rychu-Pawel/aes-ctr-concurrent#readme",
+    "main": "dist/src/index.js",
+    "type": "module",
+    "files": [
+        "dist/src"
+    ],
+    "scripts": {
+        "test": "yarn build && ava",
+        "test:ci": "ava --tap",
+        "eslint": "eslint src test",
+        "eslint:ci": "yarn eslint",
+        "clean": "del-cli --force dist",
+        "build": "yarn clean && tsc",
+        "build:ci": "yarn build"
+    },
+    "devDependencies": {
+        "@tsconfig/node22": "^22.0.0",
+        "@types/node": "^22.9.3",
+        "@typescript-eslint/eslint-plugin": "^8.15.0",
+        "@typescript-eslint/parser": "^8.15.0",
+        "ava": "^6.0.0",
+        "del-cli": "^6.0.0",
+        "eslint": "^9.15.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "typescript": "^5.0.4"
+    },
+    "ava": {
+        "files": [
+            "dist/test/**/*.spec.js"
+        ]
+    }
+}
