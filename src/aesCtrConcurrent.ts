@@ -2,23 +2,47 @@ import crypto from "crypto";
 
 import AesCtrConcurrentError from "./errors/aesCtrConcurrentError.js";
 
-const aesBlockSizeInBytes = BigInt(16);
-const IV_MAX = BigInt(`0xffffffffffffffffffffffffffffffff`);
+const aesBlockSizeInBytes = 16n;
+const IV_MAX = 0xffffffffffffffffffffffffffffffffn;
 const IV_OVERFLOW_MODULO = IV_MAX + 1n;
 
-export function createCipher(key: Buffer, iv: Buffer, startPositionInBytes: number = 0): crypto.Cipher {
-    return getCrypotStream(`cipher`, key, iv, startPositionInBytes);
-}
-
-export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytes: number = 0): crypto.Cipher {
-    return getCrypotStream(`decipher`, key, iv, startPositionInBytes);
-}
-
-function getCrypotStream(cipherOrDecipher: `cipher` | `decipher`, key: Buffer, iv: Buffer, startPositionInBytes: number): crypto.Cipher
-function getCrypotStream(cipherOrDecipher: `cipher` | `decipher`, key: Buffer, iv: Buffer, startPositionInBytes: bigint): crypto.Cipher
-function getCrypotStream(cipherOrDecipher: `cipher` | `decipher`, key: Buffer, iv: Buffer, startPositionInBytesNumberOrBigInt: number | bigint): crypto.Cipher {
+/**
+ * Creates a `crypto.Cipher` instance using the AES-256-CTR algorithm for encrypting data.
+ *
+ * @param {Buffer} key - A 32-byte encryption key.
+ * @param {Buffer} iv - A 16-byte initialization vector (IV).
+ * @param {number | bigint} [startPositionInBytes=0n] - Optional start position in bytes for the encryption process.
+ * This allows you to set the encryption position precisely, even within a block.
+ * @returns {crypto.Cipher} - A `Cipher` object ready to encrypt data.
+ * @throws {AesCtrConcurrentError} - Throws an error if any of the parameters are invalid.
+ */
+export function createCipher(key: Buffer, iv: Buffer, startPositionInBytes?: number): crypto.Cipher
+export function createCipher(key: Buffer, iv: Buffer, startPositionInBytes?: bigint): crypto.Cipher
+export function createCipher(key: Buffer, iv: Buffer, startPositionInBytesNumberOrBigInt: number | bigint = 0n): crypto.Cipher {
     const startPositionInBytes = BigInt(startPositionInBytesNumberOrBigInt);
 
+    return getCryptoStream(`cipher`, key, iv, startPositionInBytes);
+}
+
+/**
+ * Creates a `crypto.Decipher` instance using the AES-256-CTR algorithm for decrypting data.
+ *
+ * @param {Buffer} key - A 32-byte decryption key.
+ * @param {Buffer} iv - A 16-byte initialization vector (IV).
+ * @param {number | bigint} [startPositionInBytes=0n] - Optional start position in bytes for the decryption process.
+ * This allows you to set the decryption position precisely, even within a block.
+ * @returns {crypto.Decipher} - A `Decipher` object ready to decrypt data.
+ * @throws {AesCtrConcurrentError} - Throws an error if any of the parameters are invalid.
+ */
+export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytes?: number): crypto.Cipher
+export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytes?: bigint): crypto.Cipher
+export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytesNumberOrBigInt: number | bigint = 0n): crypto.Cipher {
+    const startPositionInBytes = BigInt(startPositionInBytesNumberOrBigInt);
+
+    return getCryptoStream(`decipher`, key, iv, startPositionInBytes);
+}
+
+function getCryptoStream(cipherOrDecipher: `cipher` | `decipher`, key: Buffer, iv: Buffer, startPositionInBytes: bigint): crypto.Cipher {
     throwIfParametersAreInvalid(iv, key, startPositionInBytes);
 
     const fullAesBlocksIncrement = startPositionInBytes / aesBlockSizeInBytes;
@@ -34,14 +58,15 @@ function getCrypotStream(cipherOrDecipher: `cipher` | `decipher`, key: Buffer, i
 }
 
 function throwIfParametersAreInvalid(iv: Buffer, key: Buffer, startPositionInBytes: bigint) {
-    if (iv.length !== 16)
-        throw new AesCtrConcurrentError(`IV is required to be 16 bytes long`);
-    if (key.length !== 32)
-        throw new AesCtrConcurrentError(`Key is required to be 32 bytes long`);
-    if (startPositionInBytes < 0)
+    if (!Buffer.isBuffer(iv) || iv.length !== 16)
+        throw new AesCtrConcurrentError(`IV is required to be 16 bytes long Buffer`);
+    if (!Buffer.isBuffer(key) || key.length !== 32)
+        throw new AesCtrConcurrentError(`Key is required to be 32 bytes long Buffer`);
+    if (startPositionInBytes < 0n)
         throw new AesCtrConcurrentError(`Start position must be greater or equal to 0`);
 }
 
+// This method is exported only for test purpose
 export function incrementIvByFullBlocks(originalIv: Buffer, fullBlocksToIncrement: bigint): Buffer {
     let ivBigInt = bufferToBigInt(originalIv);
 

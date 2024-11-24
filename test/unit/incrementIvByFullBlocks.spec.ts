@@ -1,6 +1,6 @@
 import test from "ava";
 
-import { incrementIvByFullBlocks } from "../../src/index.js";
+import { incrementIvByFullBlocks } from "../../src/aesCtrConcurrent.js";
 
 test(`Increment by 1`, t => {
     // Arrange
