@@ -26,7 +26,7 @@ import { createCipher, createDecipher } from 'aes-ctr-concurrent';
 
 ### Simple Encryption and Decryption
 
-Here's a basic example of encrypting and decrypting data using the library (also see `examples/simpleEncryptionAndDecryption.spec.ts`):
+Here's a basic example of encrypting and decrypting data using the library (also see [`examples/simpleEncryptionAndDecryption.spec.ts`](https://github.com/Rychu-Pawel/aes-ctr-concurrent/blob/master/examples/simpleEncryptionAndDecryption.spec.ts)):
 
 ```typescript
 import crypto from 'crypto';
@@ -50,7 +50,7 @@ console.log(decrypted.toString('utf-8')); // Outputs: Hello, World!
 
 ### Advanced Example: Concurrent File Encryption with Streams
 
-This example demonstrates how to encrypt a file concurrently by processing it in chunks and adjusting the IV offset precisely for each chunk. This allows for parallel processing of large files. You can also see `examples/concurrentFileEncryption.spec.ts`.
+This example demonstrates how to encrypt a file concurrently by processing it in chunks and adjusting the IV offset precisely for each chunk. This allows for parallel processing of large files. You can also see [`examples/concurrentFileEncryption.spec.ts`](https://github.com/Rychu-Pawel/aes-ctr-concurrent/blob/master/examples/concurrentFileEncryption.spec.ts).
 
 ## Setup
 
@@ -58,6 +58,7 @@ Ensure you have a file named `plainTextFile` that you want to encrypt and empty 
 
 ```
 import fs from 'fs/promises';
+import crypto from 'crypto';
 import { ReadStream, WriteStream, constants as fsConsts } from 'fs';
 import { pipeline } from 'stream/promises';
 import { createCipher } from 'aes-ctr-concurrent';
