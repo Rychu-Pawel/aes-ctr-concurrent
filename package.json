@@ -1,7 +1,7 @@
 {
     "name": "aes-ctr-concurrent",
     "version": "1.0.0-beta.0",
-    "description": "Native TypeScript Node.js library for AES-256-CTR with a Promise-based API, enabling concurrent encryption/decryption with precise IV offset handling down to any byte level, not just full blocks.",
+    "description": "Native TypeScript Node.js library for AES-256-CTR, enabling concurrent encryption/decryption with precise IV offset handling down to any byte level, not just full blocks.",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Rychu-Pawel/aes-ctr-concurrent.git"

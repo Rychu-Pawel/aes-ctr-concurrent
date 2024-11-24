@@ -1,3 +1,2 @@
-export default function sanityCheck(): string {
-    return `test`;
-}
+export { default as AesCtrConcurrentError } from "./errors/aesCtrConcurrentError.js";
+export * from "./aesCtrConcurrent.js";
