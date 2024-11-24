@@ -56,7 +56,7 @@ This example demonstrates how to encrypt a file concurrently by processing it in
 
 Ensure you have a file named `plainTextFile` that you want to encrypt and empty `encryptedFile` to which ecrypted data will be written.
 
-```
+```typescript
 import fs from 'fs/promises';
 import crypto from 'crypto';
 import { ReadStream, WriteStream, constants as fsConsts } from 'fs';
