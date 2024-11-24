@@ -40,7 +40,8 @@ function decryptAsync(chunkStartPostionInBytes: number, chunkLengthInBytes: numb
             const chunkDecipher = createDecipher(key, iv, chunkStartPostionInBytes);
             const chunkPlainTextBuffer = Buffer.concat([chunkDecipher.update(cipherTextBufferChunk), chunkDecipher.final()]);
             resolve(chunkPlainTextBuffer);
-        } catch (error) {
+        }
+        catch (error) {
             reject(error);
         }
     });

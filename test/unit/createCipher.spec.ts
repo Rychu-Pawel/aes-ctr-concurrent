@@ -37,7 +37,8 @@ function encryptAsync(chunkStartPostionInBytes: number, chunkLengthInBytes: numb
             const chunkCipher = createCipher(key, iv, chunkStartPostionInBytes);
             const chunkCipherTextBuffer = Buffer.concat([chunkCipher.update(plainTextChunk, `utf8`), chunkCipher.final()]);
             resolve(chunkCipherTextBuffer);
-        } catch (error) {
+        }
+        catch (error) {
             reject(error);
         }
     });
