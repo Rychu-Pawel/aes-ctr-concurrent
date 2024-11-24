@@ -9,12 +9,12 @@ const IV_OVERFLOW_MODULO = IV_MAX + 1n;
 /**
  * Creates a `crypto.Cipher` instance using the AES-256-CTR algorithm for encrypting data.
  *
- * @param {Buffer} key - A 32-byte encryption key.
- * @param {Buffer} iv - A 16-byte initialization vector (IV).
- * @param {number | bigint} [startPositionInBytes=0n] - Optional start position in bytes for the encryption process.
+ * @param {Buffer} key - a 32-byte encryption key.
+ * @param {Buffer} iv - a 16-byte initialization vector (IV).
+ * @param {number | bigint} [startPositionInBytes=0n] - optional start position in bytes for the encryption process.
  * This allows you to set the encryption position precisely, even within a block.
- * @returns {crypto.Cipher} - A `Cipher` object ready to encrypt data.
- * @throws {AesCtrConcurrentError} - Throws an error if any of the parameters are invalid.
+ * @returns {crypto.Cipher} A `Cipher` object ready to encrypt data.
+ * @throws {AesCtrConcurrentError} Throws an error if any of the parameters are invalid.
  */
 export function createCipher(key: Buffer, iv: Buffer, startPositionInBytes?: number): crypto.Cipher
 export function createCipher(key: Buffer, iv: Buffer, startPositionInBytes?: bigint): crypto.Cipher
@@ -27,12 +27,12 @@ export function createCipher(key: Buffer, iv: Buffer, startPositionInBytesNumber
 /**
  * Creates a `crypto.Decipher` instance using the AES-256-CTR algorithm for decrypting data.
  *
- * @param {Buffer} key - A 32-byte decryption key.
- * @param {Buffer} iv - A 16-byte initialization vector (IV).
- * @param {number | bigint} [startPositionInBytes=0n] - Optional start position in bytes for the decryption process.
+ * @param {Buffer} key - a 32-byte decryption key.
+ * @param {Buffer} iv - a 16-byte initialization vector (IV).
+ * @param {number | bigint} [startPositionInBytes=0n] - optional start position in bytes for the decryption process.
  * This allows you to set the decryption position precisely, even within a block.
- * @returns {crypto.Decipher} - A `Decipher` object ready to decrypt data.
- * @throws {AesCtrConcurrentError} - Throws an error if any of the parameters are invalid.
+ * @returns {crypto.Decipher} A `Decipher` object ready to decrypt data.
+ * @throws {AesCtrConcurrentError} Throws an error if any of the parameters are invalid.
  */
 export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytes?: number): crypto.Cipher
 export function createDecipher(key: Buffer, iv: Buffer, startPositionInBytes?: bigint): crypto.Cipher
